@@ -18,9 +18,13 @@ int main(int argc, char* argv[])
         fprintf(stderr, "Fork Failure\n");
         exit(1);
     } else if (rc == 0) {
-        fwrite("child success (pid: %d)\n", (int) getpid());
+        printf("child success (pid: %d)\n", (int) getpid());
+        char child_str[] = "This is child string!\n";
+        fwrite(child_str, 1, sizeof(child_str), fp);
     } else {
-        fwrite("parent success (pid: %d)\n", (int) getpid());
+        printf("parent success (pid: %d)\n", (int) getpid());
+        char parent_str[] = "Parent string\n";
+        fwrite(parent_str, 1, sizeof(parent_str), fp);
     }
 
     fclose(fp);
